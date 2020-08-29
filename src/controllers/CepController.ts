@@ -6,16 +6,36 @@ class CepController {
 
     async show(request: Request, response: Response) {
 
-        const { id } = request.params;
-        let localidade: CepModel;
-        try {
-            const { data } = await axios.get(`https://viacep.com.br/ws/${id}/json/`);
-            localidade = data;
-            return response.json(localidade);
+        let { id } = request.params;
+        let localidade: CepModel = new CepModel('', '', '', '', '', '', '', '', '', '');
 
-        } catch (error) {
-            console.log(error)
+        const validarFormato = new RegExp(/^[0-9]{8}$/);
+
+        if (validarFormato.test(id)) {
+            try {
+                let i = 1;
+                do {
+                    const { status, statusText, data } = await axios.get(`https://viacep.com.br/ws/${id}/json/`);
+                    console.log(status);
+                    console.log(statusText);
+                    console.log(data);
+                    data.hasOwnProperty('cep') ? localidade = data : id = id;
+                    console.log(this.substituirZeros(id, i));
+                    i++;
+                } while (localidade.cep === '' || id === '00000000');
+
+                return response.json({ status: 200, data: localidade });
+
+            } catch (error) {
+                console.error(error)
+            }
+        } else {
+            return response.json({ status: 400, message: 'Favor informar os dados no formato correto.' });
         }
+    }
+
+    substituirZeros(text: string, index: number): string {
+        return text.replace(text.substring(text.length - index, text.length), '0');
     }
 }
 
