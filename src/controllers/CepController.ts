@@ -49,7 +49,7 @@ class CepController {
                 index++;
             } while (id !== '00000000' && !achou);
 
-            return response.json({ status: 404, data: 'Objeto não encontrado.' });
+            return response.json({ status: 404, message: 'Objeto não encontrado.' });
 
         } else {
             return response.json({ status: 400, message: 'CEP inválido.' });
