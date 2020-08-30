@@ -1,0 +1,100 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.3.0",
+    "title": "CEP Labs",
+    "description": "API para desafio",
+    "termsOfService": "https://smartbear.com/terms-of-use/",
+    "contact": {
+      "name": "Hugo Alexandre",
+      "email": "h.alexandre014@gmail.com",
+      "url": "https://www.linkedin.com/in/hugo-alexandre-cavalcanti-porto-91b17649/"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3333/",
+      "description": "Local server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "CEP"
+    }
+  ],
+  "paths": {
+    "/ceps/{id}": {
+      "get": {
+        "tags": [
+          "CEP"
+        ],
+        "description": "Buscar endereço pelo CEP",
+        "operationId": "searchCep",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Código do CEP a ser buscado"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Endereço recuperado pelo CEP informado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "cep": {
+                      "type": "string"
+                    },
+                    "logradouro": {
+                      "type": "string"
+                    },
+                    "complemento": {
+                      "type": "string"
+                    },
+                    "bairro": {
+                      "type": "string"
+                    },
+                    "localidade": {
+                      "type": "string"
+                    },
+                    "uf": {
+                      "type": "string"
+                    },
+                    "ibge": {
+                      "type": "string"
+                    },
+                    "gia": {
+                      "type": "string"
+                    },
+                    "ddd": {
+                      "type": "string"
+                    },
+                    "siafi": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "CEP inválido"
+          },
+          "404": {
+            "description": "Objeto não encontrado"
+          }
+        }
+      }
+    }
+  }
+}
