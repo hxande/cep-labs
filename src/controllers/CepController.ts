@@ -2,14 +2,14 @@ import { Request, Response } from 'express';
 import { CepModel } from '../models/CepModel';
 // import axios from 'axios';
 import data from '../../dataMock.json';
+import substituirZeros from '../utils/substituirZeros';
 
 class CepController {
 
-    async show(request: Request, response: Response) {
-
+    /* async */ show(request: Request, response: Response) {
         let { id } = request.params;
-        let localidade: CepModel = new CepModel('', '', '', '', '', '', '', '', '', '');
-        console.log(data);
+        // let localidade: CepModel = new CepModel('', '', '', '', '', '', '', '', '', '');
+
         const validarFormato = new RegExp(/^[0-9]{8}$/);
 
         if (validarFormato.test(id)) {
@@ -34,13 +34,26 @@ class CepController {
             // } catch (error) {
             //     return response.json({ status: 400, message: error.message });
             // }
+
+            let index = 1;
+            let achou = false;
+
+            do {
+                if (data.some((loc) => loc.cep === id)) {
+                    const localidade = data.find(item => item.cep === id);
+                    achou = true;
+                    return response.json({ status: 200, data: localidade });
+                } else {
+                    id = substituirZeros(id, index);
+                }
+                index++;
+            } while (id !== '00000000' && !achou);
+
+            return response.json({ status: 404, data: 'Objeto não encontrado.' });
+
         } else {
             return response.json({ status: 400, message: 'CEP inválido.' });
         }
-    }
-
-    substituirZeros(text: string, index: number): string {
-        return text.replace(text.substring(text.length - index, text.length), '0');
     }
 }
 

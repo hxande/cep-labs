@@ -20,7 +20,7 @@ export class CepModel {
         ibge: string,
         gia: string,
         ddd: string,
-        siafi: string,
+        siafi: string
     ) {
         this.cep = cep;
         this.logradouro = logradouro;
