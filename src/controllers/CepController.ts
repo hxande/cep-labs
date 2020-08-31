@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { CepModel } from '../models/CepModel';
 // import axios from 'axios';
 import data from '../../dataMock.json';
@@ -6,7 +6,7 @@ import substituirZeros from '../utils/substituirZeros';
 
 class CepController {
 
-    /* async */ show(request: Request, response: Response) {
+    /* async */ show(request: Request, response: Response, next: NextFunction) {
         let { id } = request.params;
         // let localidade: CepModel = new CepModel('', '', '', '', '', '', '', '', '', '');
 

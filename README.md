@@ -10,3 +10,10 @@ Não costumo decorar syntaxe de funções, mas sempre que preciso criar ou imple
 ## Swagger da API
 host:port/api-docs
 [Link](http://localhost:3333/api-docs)
+
+## Segurança
+Fiz um endpoint para o usuário logar e retornar um JWT a ser passado no header da requisição, porém como não consegui fazer funcionar pelo swagger, eu tirei a necessidade de autorização para chamar o serviço.
+Os dados de usuário e senha, assim como a chave de segurança estão fixos para facilitar desenvolvimento.
+**user: luiza**
+**pwd: labs**
+O código da rota com o middleware de verificação do token estão comentados.
