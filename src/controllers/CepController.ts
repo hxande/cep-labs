@@ -6,7 +6,7 @@ import substituirZeros from '../utils/substituirZeros';
 
 class CepController {
 
-    /* async */ show(request: Request, response: Response, next: NextFunction) {
+    /* async */ show(request: Request, response: Response) {
         let { id } = request.params;
         // let localidade: CepModel = new CepModel('', '', '', '', '', '', '', '', '', '');
 

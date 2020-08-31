@@ -1,6 +1,7 @@
 import cors from 'cors';
 import express from 'express';
 import routes from './routes';
+import healthcheck from './healthcheck.routes';
 import swaggerUi from 'swagger-ui-express';
 import swaggerConfig from '../swaggerConfig.json';
 import cookieParser from 'cookie-parser';
@@ -11,6 +12,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(routes);
+app.use(healthcheck);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerConfig));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
